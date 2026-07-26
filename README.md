@@ -110,4 +110,3 @@ This repository is primarily for personal learning and practice. Suggestions and
 
 - GitHub: https://github.com/Tou-Eng
 - LinkedIn: https://www.linkedin.com/in/toufik-menaa-6286602a2/
-- Portfolio:
