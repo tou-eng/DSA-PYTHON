@@ -29,20 +29,6 @@ dsa-python/
 └── graphs/
 ```
 
-As the repository grows, more topics will be added, including:
-
-- Strings
-- Hash Tables
-- Heaps
-- Recursion
-- Backtracking
-- Dynamic Programming
-- Greedy Algorithms
-- Sorting Algorithms
-- Searching Algorithms
-- Graph Algorithms
-
----
 
 ## 🚀 Getting Started
 
@@ -124,4 +110,3 @@ This repository is primarily for personal learning and practice. Suggestions and
 
 - GitHub: https://github.com/Tou-Eng
 - LinkedIn: https://www.linkedin.com/in/toufik-menaa-6286602a2/
-- Portfolio: https://tou-eng.github.io/Toufik-Portfolio/
