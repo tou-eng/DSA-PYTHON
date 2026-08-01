@@ -54,8 +54,6 @@
 # print(phone.battery_percentage())
 
 
-
-
 # from copy import deepcopy
 
 
@@ -84,15 +82,6 @@
 #     def get_balance(self):
 #         return self.__balance
 
-#     def transfer(self, other_account, amount):
-#         if not isinstance(other_account, BankAccount):
-#             print("Invalid account.")
-#             return
-#         self.withdraw(amount)
-#         other_account.deposit(amount)
-#         other_account.__history.append(("receive", amount, self.owner))
-#         self.__history.append(("transfer", amount, other_account.owner))
-#         print("Transfer failed")
 
 #     def show_history(self):
 #         return deepcopy(self.__history)
@@ -104,7 +93,7 @@
 # print(account1.show_history())
 # print(account2.show_history())
 
-#i am trying to solve this exercice
+# i am trying to solve this exercice
 # class car:
 #     def __init__(self, speed, fuel):
 #         self.__speed = max(0, min(speed, 220))
@@ -146,7 +135,7 @@
 #         return self.__fuel
 
 
-#the right way to solve the exercice is this one
+# the right way to solve the exercice is this one
 # class Car:
 #     MAX_SPEED = 220
 #     MAX_FUEL = 50
@@ -478,7 +467,7 @@
 #     @property
 #     def mana(self):
 #         return self.__mana
-    
+
 #     def cast_spell(self, cost):
 #         if self.__mana>0:
 #             if cost>0:
@@ -517,7 +506,7 @@
 #         super().show_status()
 #         print(f"Aura: {self.__aura}")
 
-#RPG game
+# RPG game
 # class Pet:
 #     def __init__(self,name):
 #         self.__name=name
@@ -577,7 +566,7 @@
 # safira.breath_fire(150)
 # safira.show_status()
 
-#school
+# school
 # class Person:
 #     def __init__(self,name, age):
 #         self.__name=name
@@ -606,7 +595,7 @@
 # s1=Student("toufik",26,20)
 # s1.introduce()
 
-#Bank account
+# Bank account
 # class Account:
 #     def __init__(self, owner, balance):
 #         self.__owner=owner
@@ -643,7 +632,7 @@
 #         self._balance+=self._balance*self.__interest_rate
 #     def show_balance(self):
 #         super().show_balance()
-        
+
 # class PremiumAccount(Account):
 #     def __init__(self,owner, balance):
 #         super().__init__(owner,balance)
@@ -676,7 +665,7 @@
 #     @property
 #     def brand(self):
 #         return self._brand
-    
+
 #     #     # ---------- Behaviors ----------
 #     def accelerate(self, amount):
 #         if amount <= 0:
@@ -689,8 +678,8 @@
 
 #         # Increase speed
 #         self._speed += amount
-#         if self._speed > Vehicle.MAX_SPEED:
-#             self._speed = Vehicle.MAX_SPEED
+#         if self._speed > self.MAX_SPEED:
+#             self._speed = self.MAX_SPEED
 
 #         # Consume fuel
 #         self._fuel -= amount * 0.1
@@ -762,3 +751,199 @@
 # car1.show_status()
 # motor.show_status()
 # truck1.show_status()
+print("FILE IS RUNNING")
+
+
+class Character:
+    def __init__(self, name):
+        self._name = name
+        self._health = 100
+        self._exp = 0
+        self._level = 1
+
+    @property
+    def health(self):
+        return self._health
+
+    @property
+    def exp(self):
+        return self._exp
+
+    @property
+    def level(self):
+        return self._level
+    #     # ---------- Behaviors ----------
+
+    def take_damage(self, amount):
+        if amount > 0:
+            self._health -= amount
+            if self._health <= 0:
+                print("DEAD")
+                return
+
+    def heal(self, amount):
+        if self._health > 0:
+            if amount > 0:
+                self._health = min(100, self._health + amount)
+
+        else:
+            print("DEAD")
+            return
+
+    def gain_experience(self, xp):
+        self._exp += xp
+        if self._exp >= 100:
+            self._level += 1
+            self._exp -= 100
+            self._health = 100
+
+    def show_status(self):
+        print(f"{self._name}'s status")
+        print(f"Health: {self._health}")
+        print(f"Level: {self._level}")
+        print(f"Experience: {self._exp}")
+
+
+class Mage(Character):
+    def __init__(self, name):
+        super().__init__(name)
+        self.__mana = 100
+
+    @property
+    def mana(self):
+        return self.__mana
+
+    def cast_spell(self, cost):
+        if self.__mana > 0:
+            if cost > 0:
+                self.__mana -= cost
+                # regain a small amount of mana after casting, capped at 100
+                self.__mana = min(100, self.__mana + 5)
+                print("FIRE BALL")
+
+    def gain_experience(self, xp):
+        super().gain_experience(xp)
+        self.__mana = 100
+        # If the character leveled up,
+        # restore mana
+
+    def show_status(self):
+        super().show_status()
+        print(f"Mana: {self.__mana}")
+
+
+class Warrior(Character):
+    def __init__(self, name):
+        super().__init__(name)
+        self.__rage = 100
+
+    @property
+    def rage(self):
+        return self.__rage
+
+    def sword_slash(self, cost):
+        if self.__rage > 0:
+            if cost > 0:
+                self.__rage -= cost
+                print("Sword Slash")
+
+    def take_damage(self, amount):
+        super().take_damage(amount)
+        if self.__rage < 100:
+            self.__rage = min(100, self.__rage + amount*0.5)
+
+    def gain_experience(self, xp):
+        super().gain_experience(xp)
+        self.__rage = 100
+
+    def show_status(self):
+        super().show_status()
+        print(f"Rage: {self.__rage}")
+
+
+class Archer(Character):
+    def __init__(self, name):
+        super().__init__(name)
+        self.__arrows = 30
+
+    @property
+    def arrows(self):
+        return self.__arrows
+
+    def shoot_arrow(self):
+        if self.__arrows > 0:
+            self.__arrows -= 1
+            print("PERFECT ARROW")
+        else:
+            self.__arrows = 30
+
+    def gain_experience(self, xp):
+        super().gain_experience(xp)
+        self.__arrows = 30
+
+    def show_status(self):
+        super().show_status()
+        print(f"Arrows: {self.__arrows}")
+
+
+class Assassin(Character):
+    def __init__(self, name):
+        super().__init__(name)
+        self.__energy = 100
+
+    @property
+    def energy(self):
+        return self.__energy
+
+    def Backstab(self, cost):
+        if self.__energy > 0:
+            if cost > 0:
+                self.__energy -= cost
+                print("critical hit")
+
+    def gain_experience(self, xp):
+        super().gain_experience(xp)
+        self.__energy = 100
+
+    def show_status(self):
+        super().show_status()
+        print(f"Energy: {self.__energy}")
+
+
+class Healer(Character):
+    def __init__(self, name):
+        super().__init__(name)
+        self.__holy_power = 100
+
+    @property
+    def holy_power(self):
+        return self.__holy_power
+
+    def heal_ally(self, other_player, cost):
+        if not isinstance(other_player, Character):
+            print("Invalid player.")
+            return
+        if self.__holy_power > 0:
+            if cost > 0:
+                self.__holy_power -= cost
+                other_player.heal(cost)
+                self.__holy_power += 5
+
+    def gain_experience(self, xp):
+        super().gain_experience(xp)
+        self.__holy_power = 100
+
+    def show_status(self):
+        super().show_status()
+        print(f"Holy Power: {self.__holy_power}")
+
+p1 = Mage("Merlin")
+p1.show_status()
+p2=Warrior("Arther")
+p2.show_status()
+p3=Assassin("Cyres")
+p3.show_status()
+p4=Healer("Dorothi")
+p4.show_status()
+p5=Archer("Robin")
+p5.show_status()
